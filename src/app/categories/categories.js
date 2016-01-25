@@ -9,16 +9,17 @@ angular.module('categories', [
 				views: {
 					'categories@': {
                         // @ symbol for absolute path
-                        controller: 'CategoriesCtrl',
+                        controller: 'CategoriesListCtrl as categoriesListCtrl',
                         templateUrl: 'app/categories/categories.tmpl.html'
-					}, 'bookmarks@': {
-                        controller: 'BookmarksCtrl',
-                        templateUrl: 'app/categories/bookmarks/bookmarks.tmpl.html'
 					}
 				}
 			})
 	})
-    .controller('CategoriesCtrl', function CategoriesCtrl($scope){
-
+    .controller('CategoriesListCtrl', function CategoriesCtrl(CategoriesModel){
+        var categoriesListCtrl = this;
+        CategoriesModel.getCategories()
+            .then(function(result){
+                categoriesListCtrl.categories = result;
+            });
     })
 ;
