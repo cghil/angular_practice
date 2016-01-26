@@ -18,14 +18,19 @@ angular.module('categories.bookmarks', [
 			})
 	})
 
-	.controller('BookmarksListCtrl', function($stateParams, BookmarksModel, $log){
+	.controller('BookmarksListCtrl', function($stateParams, BookmarksModel, CategoriesModel){
 		var bookmarksListCtrl = this;
-		bookmarksListCtrl.currentCategoryName = $stateParams.category;
+
+		CategoriesModel.setCurrentCategory($stateParams.category);
+
 		BookmarksModel.getBookmarks()
-			.then(function(result){
-				bookmarksListCtrl.bookmarks = result;
+			// this is giving back a response... we are calling the response bookmarks
+			.then(function(bookmarks){
+				bookmarksListCtrl.bookmarks = bookmarks;
 			});
 
+		bookmarksListCtrl.getCurrentCategory = CategoriesModel.getCurrentCategory;
+		bookmarksListCtrl.getCurrentCategoryName = CategoriesModel.getCurrentCategoryName;
 
 
 	})

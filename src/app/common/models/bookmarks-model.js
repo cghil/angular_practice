@@ -15,11 +15,8 @@ angular.module('eggly.models.bookmarks', [
 			bookmarks = extract(result);
 			return bookmarks;
 		}
-
         model.getBookmarks = function(){
-        	return (categories) ? $q.when(categories) : $http.get(URLS.FETCH).then(cacheBookmarks);
+        	return $http.get(URLS.FETCH).then(cacheBookmarks);
         };
-
-        
 	})	
 ;
